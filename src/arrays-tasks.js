@@ -233,7 +233,7 @@ function doubleArray(arr) {
  *    toStringList(['rock', 'paper', 'scissors']) => 'rock,paper,scissors'
  */
 function toStringList(arr) {
-  return arr.map(String);
+  return arr.join(',');
 }
 
 /**
@@ -614,7 +614,7 @@ function sortDigitNamesByNumericOrder(arr) {
  */
 function swapHeadAndTail(arr) {
   const { length } = arr;
-  const middleIndex = Math.floot(length / 2);
+  const middleIndex = Math.floor(length / 2);
   const head = arr.slice(0, middleIndex);
   const tail = arr.slice(-middleIndex);
 
