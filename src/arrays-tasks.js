@@ -39,10 +39,15 @@ function getIntervalArray(start, end) {
  *    sumArrays([-1, 0, 1], [1, 2, 3, 4]) => [0, 2, 4, 4]
  */
 function sumArrays(arr1, arr2) {
-  if (arr1.length !== arr2.length) {
-    throw new Error('Arrays must be the same length');
+  const maxLength = Math.max(arr1.length, arr2.length);
+  const result = [];
+
+  for (let i = 0; i < maxLength; i += 1) {
+    const value1 = arr1[i] !== undefined ? arr1[i] : 0;
+    const value2 = arr2[i] !== undefined ? arr2[i] : 0;
+    result.push(value1 + value2);
   }
-  return arr1.map((value, index) => value + arr2[index]);
+  return result;
 }
 
 /**
@@ -449,6 +454,9 @@ function getIndicesOfOddNumbers(numbers) {
  */
 function getHexRGBValues(arr) {
   return arr.map((hex) => {
+    if (typeof hex !== 'string') {
+      throw new TypeError('Expected a string');
+    }
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
     const b = parseInt(hex.slice(5, 7), 16);
@@ -566,6 +574,7 @@ function propagateItemsByPositionIndex(arr) {
  */
 function shiftArray(arr, n) {
   const { length } = arr;
+  if (length === 0) return arr;
   const shiftIndex = ((n % length) + length) % length;
   return arr.slice(shiftIndex).concat(arr.slice(0, shiftIndex));
 }
