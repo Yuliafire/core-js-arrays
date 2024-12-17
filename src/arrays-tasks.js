@@ -178,7 +178,7 @@ function isValueEqualsIndex(arr) {
  *    insertItem([ 1, 'b', 'c'], 'x', 0) => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-  arr.splice(index, 0, item);
+  return arr.splice(index, 0, item);
 }
 
 /**
@@ -453,14 +453,12 @@ function getIndicesOfOddNumbers(numbers) {
  *    getHexRGBValues([]) => []
  */
 function getHexRGBValues(arr) {
-  return arr.map((hex) => {
-    if (typeof hex !== 'string') {
-      throw new TypeError('Expected a string');
+  return arr.map((num) => {
+    if (typeof num !== 'number') {
+      throw new TypeError('Expected a number');
     }
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return { r, g, b };
+    const hex = num.toString(16).padStart(6, '0').toUpperCase();
+    return `#${hex}`;
   });
 }
 
@@ -636,7 +634,7 @@ function swapHeadAndTail(arr) {
     return tail.concat(head);
   }
   const middle = arr[middleIndex];
-  return tail.concat[(middle, head)];
+  return tail.concat(middle, head);
 }
 
 function concatenateStrings(value1, value2) {
