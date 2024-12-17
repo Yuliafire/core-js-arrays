@@ -272,12 +272,9 @@ function distinct(arr) {
  *    createNDimensionalArray(1, 1) => [0]
  */
 function createNDimensionalArray(n, size) {
-  if (n === 1) {
-    return Array.from({ length: size });
-  }
-  return Array.from({ length: size }, () =>
-    createNDimensionalArray(n - 1, size)
-  );
+  return n === 1
+    ? Array(size).fill(0)
+    : Array.from({ length: size }, () => createNDimensionalArray(n - 1, size));
 }
 
 /**
