@@ -432,6 +432,23 @@ function getIdentityMatrix(n) {
   );
 }
 
+// function getIdentityMatrix(n):
+//     # Step 1: Initialize matrix with zeros
+//     matrix = create an array of length n
+//     for each element in matrix:
+//         create an array of length n filled with zeros
+
+//     # Step 2: Transform to identity matrix
+//     for each row in matrix with index 'index':
+//         for each element in row with index 'i':
+//             if i equals index:
+//                 set element to 1
+//             else:
+//                 set element to 0
+
+//     # Step 3: Return the identity matrix
+//     return matrix
+
 /**
  * Returns an array containing indices of odd elements in the input array.
  *
@@ -578,10 +595,12 @@ function propagateItemsByPositionIndex(arr) {
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
 function shiftArray(arr, n) {
-  const { length } = arr;
-  if (length === 0) return arr;
-  const shiftIndex = ((n % length) + length) % length;
-  return arr.slice(shiftIndex).concat(arr.slice(0, shiftIndex));
+  if (n < 0) {
+    const newArray = arr.splice(0, Math.abs(n));
+    return arr.concat(newArray);
+  }
+  const newArray = arr.splice(arr.length - n, n);
+  return newArray.concat(arr);
 }
 /**
  * Sorts digit names.
@@ -631,12 +650,22 @@ function sortDigitNamesByNumericOrder(arr) {
  *   swapHeadAndTail([]) => []
  *
  */
+
+// Pseudocode for swapHeadAndTail Function
+// Get the length of the array.
+// If the array has only one element, return the array as is.
+// Calculate the middle index of the array.
+// Split the array into two parts: head (from the start to the middle) and tail (from the middle to the end).
+// If the array length is even, concatenate the tail and head and return the result.
+// If the array length is odd, find the middle element, concatenate the tail, middle element, and head, and return the result.
 function swapHeadAndTail(arr) {
   const { length } = arr;
+  if (length === 1) {
+    return arr;
+  }
   const middleIndex = Math.floor(length / 2);
   const head = arr.slice(0, middleIndex);
-  const tail = arr.slice(-middleIndex);
-
+  const tail = arr.slice(0, -middleIndex);
   if (length % 2 === 0) {
     return tail.concat(head);
   }
