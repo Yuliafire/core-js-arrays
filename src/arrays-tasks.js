@@ -208,7 +208,7 @@ function getHead(arr, n) {
  *    getTail([ 'a', 'b', 'c', 'd'], 0) => []
  */
 function getTail(arr, n) {
-  return arr.slice(-n);
+  return arr.slice(arr.length - n);
 }
 
 /**
@@ -327,9 +327,19 @@ function selectMany(arr, childrenSelector) {
  *   calculateBalance([ [ 10, 8 ], [ 1, 5 ] ])  => (10 - 8) + (1 - 5) = 2 + -4 = -2
  *   calculateBalance([]) => 0
  */
+
 function calculateBalance(arr) {
-  return arr.reduce((balance, item) => balance + item, 0);
+  return arr.reduce((total, [income, expense]) => {
+    return total + (income - expense);
+  }, 0);
 }
+
+// Initialize total to 0.
+// For each sub-array in arr:
+// Extract income and expense from sub-array.
+// Calculate netBalance as income - expense.
+// Add netBalance to total.
+// Return total.
 
 /**
  * Breaks an array into chunks of the specified size.
@@ -658,19 +668,19 @@ function sortDigitNamesByNumericOrder(arr) {
 // Split the array into two parts: head (from the start to the middle) and tail (from the middle to the end).
 // If the array length is even, concatenate the tail and head and return the result.
 // If the array length is odd, find the middle element, concatenate the tail, middle element, and head, and return the result.
+
 function swapHeadAndTail(arr) {
-  const { length } = arr;
-  if (length === 1) {
-    return arr;
+  const middle = Math.floor(arr.length / 2);
+
+  if (arr.length % 2 === 0) {
+    const head = arr.splice(0, middle);
+    return arr.concat(head);
   }
-  const middleIndex = Math.floor(length / 2);
-  const head = arr.slice(0, middleIndex);
-  const tail = arr.slice(0, -middleIndex);
-  if (length % 2 === 0) {
-    return tail.concat(head);
-  }
-  const middle = arr[middleIndex];
-  return tail.concat(middle, head);
+
+  const head = arr.splice(0, middle);
+  const tail = arr.splice(1);
+
+  return tail.concat(arr).concat(head);
 }
 
 function concatenateStrings(value1, value2) {
